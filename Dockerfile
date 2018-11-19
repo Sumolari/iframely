@@ -4,6 +4,12 @@ EXPOSE 8061
 
 WORKDIR /iframely
 
+RUN DEPS="libkrb5-dev" \
+  apk --no-cache add $DEPS && \
+  yarn global add forever && \
+  yarn install --frozen-lockfile && \
+  apk del $DEPS
+
 # Create new non-root user
 RUN addgroup -S iframelygroup && adduser -S iframely -G iframelygroup
 
